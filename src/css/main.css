@@ -1,0 +1,342 @@
+:root {
+ 
+    --rand-value: 0.5; /* Example random value between 0 and 1 */
+    --white-color: #ffffff;
+    --base-hue: 200; /* Base hue for color generation */
+    --base-saturation: 80%;
+    --base-lightness: 50%;
+    --random-color: hsl(calc(var(--rand-value) * 360), 70%, 50%);
+    --random-color-text-overlay: hsl(calc(var(--rand-value) * 360), 45%, 10%);
+
+    /* Primary and secondary colors */
+    --primary-color: #4CAF50;
+    --secondary-color: #ff1234;
+    --font-color: #333;
+    --background-color: #f9f9f9;
+
+}
+
+*, html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.2em;
+    box-sizing: border-box;
+    scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
+    overflow-x: hidden; /* Prevents horizontal scrolling when content overflows */
+    overflow-y: auto; /* Allows vertical scrolling if content overflows vertically */
+    position: relative;
+}
+
+html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, sans-serif;
+    text-rendering: optimizeLegibility; /* Enhances legibility by optimizing kerning and ligatures */
+    -webkit-font-smoothing: antialiased; /* Grayscale anti-aliasing for Webkit browsers */
+    -moz-osx-font-smoothing: grayscale; /* Grayscale anti-aliasing for Firefox on macOS */
+}
+
+body { 
+    /* Adjustment for fixed-top navbar */
+    /* min-height: 75rem; */
+    padding-top: 3.1rem;
+}
+
+hr {
+    border: none; height: 2px; background-color: #eee; width: 100%;
+}
+
+/* container settings */
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: left;
+    align-items: start;
+    justify-items: start;
+    align-content: start;
+    justify-content: start;
+}
+
+/* hidden navbar settings */
+
+#navbarHeader {
+    box-shadow: inset 0 0 5px #888;
+}
+
+#navbartogglebutton:active, #navbartogglebutton:focus {    
+    outline: 1px transparent #ccc;
+    box-shadow: none;
+}
+
+/* utility bar settings */
+.box {
+    width: 140vw;
+    position: absolute;
+    rotate: calc(5deg);
+    left: -5vw;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f0f0f0;
+    display: block;
+    font-size: 1.2em;
+    height: 23px;
+    float: right;
+    text-align: center;
+    margin: 20px;
+    border-radius: 8px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    z-index: 9999;
+}
+
+/* grid container settings */
+
+#one, #two, #three, #four, #five, #six, #seven, #eight {
+    font-size: inherit;
+    line-height: 1.9em;
+}
+
+#one, #two {
+    border-right: 1px solid #dee2e6;
+}
+
+#gridcontainer {
+    display: grid;
+    grid-template-columns: 53px repeat(8, auto);
+    grid-template-rows: repeat(5, auto); 
+}
+
+#gridcontainer div {
+    background-color: white;
+    border: 1px solid white inset;
+    text-align: left;
+    align-items: start;
+    justify-content: start;
+    align-content: start;
+    justify-items: start;
+}
+
+#gridcontainer div:nth-child(1){
+  padding: 20px;
+  background-color: var(--random-color);
+  color: var(--random-color-text-overlay);
+  grid-column: span 7;
+}
+
+#gridcontainer div:nth-child(1) a {
+  color: var(--random-color-text-overlay);
+  text-decoration: underline;
+  font-size: 1em;
+}
+
+#gridcontainer div:nth-child(1) a:hover {
+    padding: 3px 0px 3px 0px;
+    border-radius: 5px;
+    opacity: 0.7;
+    background-color: var(--white-color);
+    text-decoration: underline;
+}
+
+#gridcontainer div:nth-child(2) {
+  grid-column: span 7;
+  grid-row: span 2;
+  position: relative;
+}
+
+.my-coverphoto {
+    width: 100%;      /* Makes the image responsive to its container width */
+    max-height: 450px;     /* Maintains the image's aspect ratio */
+    margin: auto; /* auto will Center the image if its container allows */
+    display: block;   /* Changes default inline display to block for easier positioning */
+    border: 1px solid #333; /* Adds a border */
+    object-fit: cover;
+}
+
+.my-coverphoto-caption {
+    position: absolute;
+    display: flex;
+    align-items: end;
+    justify-content: start;
+    align-self: flex-end;
+    margin-bottom: 30px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent background for better readability */
+    padding: 20px;
+    font-size: 0.9em;
+    z-index:1;
+    backdrop-filter: blur(1px);
+}
+
+@media screen and (max-width: 600px) {
+    .my-coverphoto-caption {
+        display: none;
+    }
+}
+
+#gridcontainer div:nth-child(3) {
+    grid-column: span 1;
+    grid-row: 1 / span 4;
+    background-color: var(--random-color-text-overlay);
+}
+
+#gridcontainer :is(div:nth-child(3)) > a:hover {
+    background-color: var(--random-color-text-overlay);
+}
+
+/*footer*/
+
+#gridcontainer div:nth-child(4) {
+    grid-column: span 8;
+    grid-row: span 1;
+    background-color: var(--white-color);
+}
+
+#gridcontainer div:nth-child(1) a:hover {
+    padding: 0px;
+}
+
+footer {
+    border-right: 1px solid #dee2e6;
+    border-top: 1px solid #dee2e6;
+    box-shadow: inset 0 0 12px #fafafa;
+    color: var(--white-color);
+    padding: 20px;
+    margin-bottom: 0;
+    height: fit-content;
+    white-space: wrap;
+}
+
+footer, footer div, footer ul, footer li, footer a {
+    background-color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+footer #subscribeButton {
+    font-size: 0.9em;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--random-color);
+    color: var(--white-color);
+    width: fit-content;
+}
+
+#newsletter1emailaddress { 
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  padding: 5px;
+  width: fit-content;
+  height: fit-content;
+  font-size: 0.9em;
+  border: none;
+  border-bottom: 1px solid lightgray;
+}
+
+@media screen and (max-width: 999px) {
+    #footer-ul-one, #footer-ul-two, #footer-ul-three {
+        display: none;
+    }
+}
+
+/** Links page **/
+/** Links page version 2 **/
+
+#linkspage {
+    padding: 20px;
+    margin: 0 auto;
+}
+
+#linkspage, ul, ul > li {
+    list-style-type: none;
+    line-height: 1em;
+}
+
+#linkspage ul {
+    display: flex;
+    row-gap: 0.5em;
+    column-gap: 0.5em;
+    flex-wrap: wrap;
+} 
+
+#linkspage ul > li {
+    white-space: nowrap;
+    font-size: 0.9em;
+    padding: 5px 5px 5px 0px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    color: var(--random-color);
+    background-color: var(--white-color);
+    overflow: hidden;
+}
+
+#linkspage ul li span#category {
+    text-align: center;
+    padding: 6px;
+    margin-right: 3px;
+    font-weight: normal;
+    color: var(--white-color);
+    background-color: var(--random-color);
+    cursor: default;
+}
+
+#linkspage ul li span#linktext {
+    margin-right: 3px;
+    color: var(--font-color);
+}
+
+#linkspage ul li::before, #linkspage ul li::after {
+    list-style-type: none;
+ }
+
+ #linkspage ul li:first-child {
+    color: var(--font-color);
+ }
+
+ #linkspage ul li span#linktext a {
+    text-decoration: none;
+    color: inherit;
+ }
+
+ #linkspage ul li span#linktext a:hover {
+    text-decoration: underline;
+    color: inherit;
+ }
+
+ /* Accordion styles for My Interests page */
+.accordion, .accordion-item, .accordion-header, .accordion-button, .accordion-collapse, .accordion-body {
+    width: 100%;
+    box-shadow: none;
+    background-color: #fcfcfc !important;
+}
+
+
+/* Modal styles for Helpcenter page */
+#exampleModal {
+    background-color: transparent !important;
+}
+
+.modal-header, .modal-dialog, .modal-body, .modal-form, .modal-dialog, .modal-content, .modal-footer {
+    background-color: #fefefe !important;
+    width: 100%;
+}
+
+#exampleModal form input[type="text"],
+#exampleModal form input[type="email"],
+#exampleModal form select {
+    font-size: 1em;
+}
+#exampleModal #issueDescription, #contactInfo{
+    resize: vertical; /* Allows vertical resizing only */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1em;
+    width: 300px;
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
