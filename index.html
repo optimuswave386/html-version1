@@ -355,15 +355,16 @@
 
     <script>
 
-        <!-- Email subscription form handling -->
+        // Email subscription form handling
         const mySubscriptionForm = document.getElementById("emailsubscribers");
+
+        if (mySubscriptionForm) {
         mySubscriptionForm.addEventListener("submit", function(event) {
           event.preventDefault(); // Prevent the default form submission
-          tryEmailSubscription(event);
+          tryEmailSubscription();
         });
-
+        }
         function tryEmailSubscription(event) {
-          event.preventDefault(); // Prevent the default form submission behavior
           const emailInput = document.getElementById('newsletter1emailaddress');
           const email = emailInput.value;
           const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -381,30 +382,36 @@
           }
         }
 
-        <!-- Color randomizer -->
+        //Color randomizer
         const rootElementforDocument = document.documentElement;
         let rand = Math.random(); // Generates a number between 0 and 1
         rootElementforDocument.style.setProperty('--rand-value', rand);
 
-        <!-- NASA APOD Fetch -->
-        const nasaApiUrl = "https://api.nasa.gov/planetary/apod?api_key=";
-        try {
-          fetch(nasaApiUrl)
-          .then(response => {
-            console.log("Response received from NASA APOD API", response);
-            return response.json();
-          })
-          .then(data => {
-            const coverphotocaptionElement = document.querySelector('#mycoverphoto-caption');
-            coverphotocaptionElement.innerHTML = data.explanation;
-            const myImage = document.getElementById('mycoverphoto');
-            myImage.src = data.url;
-            myImage.alt = data.title;
-            console.log("Nasa APOD Data:", data);      
-          });
-        } catch (error) {
-          console.error("Error in NASA APOD fetch block:", error);
-        }
+        //NASA APOD Fetch
+        const nasaApiUrl = "https://api.nasa.gov/planetary/apod?api_key=Demo_key";
+       fetch(nasaApiUrl)
+  .then(response => {
+    console.log("Response received from NASA APOD API", response);
+    return response.json();
+  })
+  .then(data => {
+    const coverphotocaptionElement = document.querySelector('#mycoverphoto-caption');
+    const myImage = document.getElementById('mycoverphoto');
+
+    if (coverphotocaptionElement) {
+      coverphotocaptionElement.innerHTML = data.explanation;
+    }
+
+    if (myImage) {
+      myImage.src = data.url;
+      myImage.alt = data.title;
+    }
+
+    console.log("Nasa APOD Data:", data);      
+  })
+  .catch(error => {
+    console.error("Error fetching NASA APOD:", error);
+  });
           
       </script>
 
