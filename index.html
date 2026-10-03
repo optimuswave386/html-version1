@@ -380,32 +380,44 @@
             alert('Please enter a valid email address.');
           }
         }
-
+        
         <!-- Color randomizer -->
         const rootElementforDocument = document.documentElement;
         let rand = Math.random(); // Generates a number between 0 and 1
         rootElementforDocument.style.setProperty('--rand-value', rand);
 
         <!-- NASA APOD Fetch -->
-        const nasaApiUrl = "https://api.nasa.gov/planetary/apod?api_key=";
-        try {
-          fetch(nasaApiUrl)
+        const nasaApiUrl = "https://science.nasa.gov/wp-json/wp/v2/apod-basic";
+        fetch(nasaApiUrl)
           .then(response => {
             console.log("Response received from NASA APOD API", response);
+            if (!response.ok) throw new Error("HTTP " + response.status);
             return response.json();
           })
-          .then(data => {
+          .then(result => {
+            // New API returns an array of entries, newest first
+            const data = Array.isArray(result) ? result[0] : result;
+            console.log("Nasa APOD Data:", data);
+            // Note: in the new API, `url` is the article page, not the image. Use `hdurl`.
+            const imageUrl = data.hdurl || data.thumbnail_url;
             const coverphotocaptionElement = document.querySelector('#mycoverphoto-caption');
-            coverphotocaptionElement.innerHTML = data.explanation;
+            // Drop the leading "Explanation:" label and the trailing APOD notices (after the first <br><br>)
+            const explanation = data.explanation
+              .split('<br><br>')[0]
+              .replace(/^\s*<strong>\s*Explanation:\s*<\/strong>\s*/i, '');
+            // Wrap in ONE <span> (not a div, or the "#gridcontainer div" CSS rules would style it): if the caption container is flex/grid, each bare text run
+            // and <a> becomes its own column. A single wrapper keeps the text flowing as a paragraph.
+            coverphotocaptionElement.innerHTML = '<span>' + explanation + '</span>';
             const myImage = document.getElementById('mycoverphoto');
-            myImage.src = data.url;
-            myImage.alt = data.title;
-            console.log("Nasa APOD Data:", data);      
+            if (data.media_type === "image" && imageUrl) {
+              myImage.src = imageUrl;
+            }
+            myImage.alt = data.alt || data.title;
+          })
+          .catch(error => {
+            console.error("Error in NASA APOD fetch block:", error);
           });
-        } catch (error) {
-          console.error("Error in NASA APOD fetch block:", error);
-        }
-          
+
       </script>
 
 </body>

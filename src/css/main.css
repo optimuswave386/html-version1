@@ -171,6 +171,11 @@ hr {
     font-size: 0.9em;
     z-index:1;
     backdrop-filter: blur(1px);
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
 }
 
 @media screen and (max-width: 600px) {
